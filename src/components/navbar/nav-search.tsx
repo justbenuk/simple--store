@@ -1,7 +1,12 @@
+import { Input } from "../ui/input";
 export default function NavSearch() {
   return (
     <>
-      <div>Nav Search</div>
+      <Input
+        type="search"
+        placeholder="Search Product"
+        className="max-w-xs dark:bg-muted"
+      />
     </>
   );
 }
