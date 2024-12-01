@@ -7,9 +7,5 @@ export default function ProductsPage({
 }) {
   const layout = searchParams.layout || "grid";
   const search = searchParams.search || "";
-  return (
-    <ProductsContainer layout={layout} search={search}>
-      <h1>Products Page</h1>
-    </ProductsContainer>
-  );
+  return <ProductsContainer layout={layout} search={search} />;
 }
