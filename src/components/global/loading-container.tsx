@@ -1,7 +1,24 @@
+import { Card, CardContent } from "../ui/card";
+import { Skeleton } from "../ui/skeleton";
+
+function LoadingProduct() {
+  return (
+    <Card>
+      <CardContent className="p-4">
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-4 w-3/4 mt-4" />
+        <Skeleton className="h-4 w-1/2 mt-4" />
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function LoadingContainer() {
   return (
-    <>
-      <h1>Loading container</h1>
-    </>
+    <div className="pt-12 grid gap-4 md:grod-cols-2 lg:grid-cols-3">
+      <LoadingProduct />
+      <LoadingProduct />
+      <LoadingProduct />
+    </div>
   );
 }
