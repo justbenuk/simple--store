@@ -1,7 +1,15 @@
-export default function ProductsPage() {
+import ProductsContainer from "@/components/products/products-container";
+
+export default function ProductsPage({
+  searchParams,
+}: {
+  searchParams: { layout?: string; search?: string };
+}) {
+  const layout = searchParams.layout || "grid";
+  const search = searchParams.search || "";
   return (
-    <>
+    <ProductsContainer layout={layout} search={search}>
       <h1>Products Page</h1>
-    </>
+    </ProductsContainer>
   );
 }
