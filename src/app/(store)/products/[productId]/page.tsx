@@ -9,9 +9,10 @@ import ProductRating from "@/components/product/product-rating";
 export default async function SingleProduct({
   params,
 }: {
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }) {
-  const product = await fetchSingleProduct(params.productId);
+  const id = (await params).productId;
+  const product = await fetchSingleProduct(id);
   const { name, image, company, description, price } = product;
   const itemCost = formatCurrency(price);
   return (
@@ -31,15 +32,15 @@ export default async function SingleProduct({
         <div>
           <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold">{name}</h1>
-            <FavoriteToggleButton productId={params.productId} />
+            <FavoriteToggleButton productId={id} />
           </div>
-          <ProductRating productId={params.productId} />
+          <ProductRating productId={id} />
           <h4 className="text-xl mt-2">{company}</h4>
           <p className="mt-3 text-md bg-muted inline-block p-2 rounded-md">
             {itemCost}
           </p>
           <p className="mt-6 leading-8 text-muted-foreground">{description}</p>
-          <AddToCart productId={params.productId} />
+          <AddToCart productId={id} />
         </div>
       </div>
     </section>
