@@ -8,6 +8,7 @@ export default function FavoriteToggleButton({
 }) {
   return (
     <Button size="icon" variant="outline" className="p-2 cursor-pointer">
+      <p className="hidden">{productId}</p>
       <FaHeart />
     </Button>
   );
