@@ -1,7 +1,13 @@
 "use server";
 import db from "@/lib/db";
 import { redirect } from "next/navigation";
-
+import { getAuthUser, renderError } from "./user-actions";
+import {
+  productSchema,
+  imageSchema,
+  validateWithZodSchema,
+} from "@/lib/schemas";
+import { uploadImage } from "@/lib/supabase";
 export async function fetchFeaturedProducts() {
   const products = await db.product.findMany({
     where: {
@@ -44,5 +50,23 @@ export async function createProduct(
   prevState: any,
   formData: FormData,
 ): Promise<{ message: string }> {
-  return { message: "Product Created" };
+  const user = await getAuthUser();
+
+  try {
+    const rawData = Object.fromEntries(formData);
+    const file = formData.get("image") as File;
+    const validateFields = validateWithZodSchema(productSchema, rawData);
+    const validateFile = validateWithZodSchema(imageSchema, { image: file });
+    const fullPath = await uploadImage(validateFile.image);
+    await db.product.create({
+      data: {
+        ...validateFields,
+        image: fullPath,
+        clerkId: user.id,
+      },
+    });
+  } catch (error) {
+    return renderError(error);
+  }
+  redirect("/admin/products");
 }

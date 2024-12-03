@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "img.clerk.com",
       },
+      {
+        protocol: "https",
+        hostname: "gczwqbskhzcfwzjuawmz.supabase.co",
+      },
     ],
   } /* config options here */,
 };
