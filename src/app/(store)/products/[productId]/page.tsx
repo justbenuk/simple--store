@@ -5,7 +5,9 @@ import { formatCurrency } from "@/lib/format";
 import FavoriteToggleButton from "@/components/products/favorite-toggle-button";
 import AddToCart from "@/components/product/add-to-cart";
 import ProductRating from "@/components/product/product-rating";
-
+import ShareButton from "@/components/product/share-button";
+import SubmitReview from "@/components/reviews/submit-review";
+import ProductReviews from "@/components/reviews/product-reviews";
 export default async function SingleProduct({
   params,
 }: {
@@ -32,7 +34,10 @@ export default async function SingleProduct({
         <div>
           <div className="flex gap-x-8 items-center">
             <h1 className="capitalize text-3xl font-bold">{name}</h1>
-            <FavoriteToggleButton productId={id} />
+            <div className="flex items-center gap-x-2">
+              <FavoriteToggleButton productId={id} />
+              <ShareButton name={product.name} productId={product.id} />
+            </div>
           </div>
           <ProductRating productId={id} />
           <h4 className="text-xl mt-2">{company}</h4>
@@ -43,6 +48,8 @@ export default async function SingleProduct({
           <AddToCart productId={id} />
         </div>
       </div>
+      <ProductReviews productId={product.id} />
+      <SubmitReview productId={product.id} />
     </section>
   );
 }
