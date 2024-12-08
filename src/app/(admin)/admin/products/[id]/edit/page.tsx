@@ -11,12 +11,11 @@ import FormButton from "@/components/form/form-button";
 import FormCheckbox from "@/components/form/form-checkbox";
 import ImageInputContainer from "@/components/product/image-update-container";
 
-export default async function ProductEditPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id } = params;
+type IdProps = Promise<{ id: string }>;
+
+export default async function ProductEditPage({ params }: { params: IdProps }) {
+  const { id } = await params;
+  console.log(id);
   const product = await fetchAdminProductDetails(id);
   const { company, name, description, featured, price } = product;
 
