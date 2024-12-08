@@ -2,6 +2,7 @@
 import { getAuthUser, renderError } from "./user-actions";
 import db from "@/lib/db";
 import { revalidatePath } from "next/cache";
+
 export async function fetchFavoriteId({ productId }: { productId: string }) {
   const user = await getAuthUser();
   const favorite = await db.favorite.findFirst({
@@ -23,7 +24,7 @@ export async function ToggleFavoriteAction(prevState: {
 }) {
   const user = await getAuthUser();
   const { productId, favoriteId, pathname } = prevState;
-
+  const message = "";
   try {
     if (favoriteId) {
       await db.favorite.delete({
@@ -39,7 +40,9 @@ export async function ToggleFavoriteAction(prevState: {
         },
       });
       revalidatePath(pathname);
-      return { message: favoriteId ? "Removed from list" : "Added to list" };
+      return {
+        message: favoriteId ? "Removed from list" : "Added to list",
+      };
     }
   } catch (error) {
     return renderError(error);

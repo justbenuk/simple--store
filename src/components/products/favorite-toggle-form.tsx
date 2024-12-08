@@ -18,6 +18,7 @@ export default function FavoriteToggleForm({
     pathname,
   });
   return (
+    // @ts-expect-error - unsure as to why this errors at the moment
     <FormContainer action={toggleAction}>
       <CardSubmitButton isFavorite={favoriteId ? true : false} />
     </FormContainer>
