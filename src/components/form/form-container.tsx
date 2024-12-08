@@ -19,10 +19,10 @@ export default function FormContainer({
   const { toast } = useToast();
 
   useEffect(() => {
-    if (state.message) {
+    if (state?.message) {
       toast({ description: state.message });
     }
-  }, [state]);
+  }, [state, toast]);
 
   return <form action={formAction}>{children}</form>;
 }
