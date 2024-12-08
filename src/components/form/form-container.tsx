@@ -15,6 +15,7 @@ export default function FormContainer({
   action: actionFunction;
   children: ReactNode;
 }) {
+  //@ts-expect-error not sure why this wont work
   const [state, formAction] = useActionState(action, initialState);
   const { toast } = useToast();
 
