@@ -18,6 +18,7 @@ export default function CartTotals({ cart }: { cart: Cart }) {
           <CarttotalRow label="Order Total" amount={orderTotal} lastRow />
         </CardTitle>
       </Card>
+      {/* @ts-expect-error action error */}
       <FormContainer action={createOrder}>
         <FormButton text="Place Order" className="w-full mt-8" />
       </FormContainer>
