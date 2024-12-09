@@ -11,6 +11,7 @@ export const NavLinks: NavLinksProps[] = [
 
 export const LoggedInLinks: NavLinksProps[] = [
   { href: "/favorites", label: "Favorites" },
+  { href: "/reviews", label: "Reviews" },
   { href: "/cart", label: "Cart" },
   { href: "/orders", label: "Orders" },
   { href: "/admin/sales", label: "Dashboard" },

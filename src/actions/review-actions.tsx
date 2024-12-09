@@ -4,10 +4,10 @@ import { getAuthUser } from "./user-actions";
 import { reviewSchema, validateWithZodSchema } from "@/lib/schemas";
 import { revalidatePath } from "next/cache";
 import { renderError } from "./user-actions";
+import { getAuth } from "@clerk/nextjs/server";
 export async function createReviewAction(prevState: any, formData: FormData) {
   const user = await getAuthUser();
 
-  console.log(formData);
   try {
     const rawData = Object.fromEntries(formData);
     const validatedfields = validateWithZodSchema(reviewSchema, rawData);
@@ -58,8 +58,31 @@ export async function fetchProductReviewsByUser() {
   });
   return reviews;
 }
-export async function deleteProductReview() {}
-export async function findExistingReview() {}
+export async function deleteProductReview(prevState: { reviewId: string }) {
+  const { reviewId } = prevState;
+  const user = await getAuthUser();
+
+  try {
+    await db.review.delete({
+      where: {
+        id: reviewId,
+        clerkId: user.id,
+      },
+    });
+    revalidatePath("/reviews");
+  } catch (error) {
+    return renderError(error);
+  }
+}
+export async function findExistingReview(userId: string, productId: string) {
+  return db.review.findFirst({
+    where: {
+      clerkId: userId,
+      productId,
+    },
+  });
+}
+
 export async function fetchProductRating(productId: string) {
   const result = await db.review.groupBy({
     by: ["productId"],

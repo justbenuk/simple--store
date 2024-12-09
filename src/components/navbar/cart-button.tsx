@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { LuShoppingCart } from "react-icons/lu";
+import { fetchCartItems } from "@/actions/cart-actions";
+
 export default async function CartButton() {
-  //temo
-  const numItemsInCart = 9;
+  const numItemsInCart = await fetchCartItems();
   return (
     <>
       <Button
