@@ -39,6 +39,7 @@ export default async function ReviewsPage() {
 const DeleteReview = ({ reviewId }: { reviewId: string }) => {
   const deleteReview = deleteProductReview.bind(null, { reviewId });
   return (
+    // @ts-expect-error action error
     <FormContainer action={deleteReview}>
       <IconButton actionType="delete" />
     </FormContainer>
