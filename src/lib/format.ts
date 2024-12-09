@@ -5,3 +5,11 @@ export function formatCurrency(amount: number | null) {
     currency: "GBP",
   }).format(value);
 }
+
+export function formatdate(date: Date) {
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
